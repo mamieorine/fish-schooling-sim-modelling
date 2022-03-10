@@ -1,0 +1,18 @@
+* {
+  font-family: 'Century Gothic';
+  user-select: none;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: aqua;
+}
