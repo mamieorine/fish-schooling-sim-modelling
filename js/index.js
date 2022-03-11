@@ -14,12 +14,13 @@ const WIDTH = canvas.width = window.innerWidth;
 const HEIGHT = canvas.height = 600;
 const helper = new Helper();
 
+const HALF_W = WIDTH / 2;
+const HALF_H = HEIGHT / 2;
+const grd = ctx.createRadialGradient(HALF_W, HALF_H, 0, HALF_W, HALF_H, WIDTH);
+
 function animate() {
   if (isStop) return;
 
-  const HALF_W = WIDTH / 2;
-  const HALF_H = HEIGHT / 2;
-  let grd = ctx.createRadialGradient(HALF_W, HALF_H, 0, HALF_W, HALF_H, WIDTH);
   grd.addColorStop(0, "rgba(173, 216, 230,0.5)");
   grd.addColorStop(1, "rgba(125, 249, 255,0.5)");
   ctx.fillStyle = grd;
@@ -52,6 +53,7 @@ function animate() {
 }
 
 function start() {
+  document.getElementById('start').setAttribute('disabled', 'disabled')
   if (isFirstVisit) {
     window.onload = initAgent();
     isFirstVisit = false;
@@ -63,6 +65,7 @@ function start() {
 }
 
 function stop() {
+  document.getElementById('start').removeAttribute('disabled');
   isStop = true;
 }
 
@@ -80,9 +83,7 @@ function initAgent() {
 
   animate();
   frameRate = window.setInterval(function () {
-    renderStats({
-      'Good Fish': helper.groups.FISH.length,
-      'FPS': fps
-    })
+    const stats = document.getElementById('stats');
+    stats.innerHTML = 'Amount of fish in the tank : ' + helper.groups.FISH.length + '<br>' + 'FPS : ' + fps;
   }, 100);
 }

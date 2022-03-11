@@ -36,7 +36,7 @@ let stats = document.getElementById('stats');
 function renderStats(data) {
   renderData = '';
   for (let i in data) {
-    renderData += ' | ' + i + ' : ' + data[i]
+    renderData += i + ' : ' + data[i] + '<br>'
   }
 
   stats.textContent = renderData;

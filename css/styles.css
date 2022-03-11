@@ -11,8 +11,23 @@ body {
 canvas {
   margin: 0;
   padding: 0;
+  background-color: rgba(125, 249, 255,0.7);
 }
 
 .container {
-  background-color: aqua;
+  font-size: 20px;
+  text-align: center;
+}
+
+.control {
+  font-size: 20px;
+  text-align: center;
+}
+
+.control button {
+  font-size: 24px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  border: none;
+  background-color: rgb(129, 225, 230);
 }
