@@ -3,7 +3,6 @@ let ctx = canvas.getContext('2d');
 
 let isFirstVisit = true;
 let isStop = false;
-let maxNumFish = 300;
 let lastFrame;
 let fps;
 let frameRate;
@@ -25,21 +24,7 @@ function animate() {
   ctx.fillStyle = grd;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  helper.addBehavior({
-    name: FISH,
-    cloneItSelf: 0.0015,
-    callback: function () {
-      if (helper.groups.FISH.length < maxNumFish) {
-        let maxDist = Infinity;
-        const fishPopulation = helper.groups.FISH;
-
-        for (let i = 0; i < fishPopulation.length - 1; i++) {
-          let agentA = fishPopulation[i];
-          maxDist = helper.getDistance(agentA.pos.x, agentA.pos.y, this.pos.x, this.pos.y);
-        }
-      }
-    }
-  });
+  helper.addBehavior({name: FISH});
 
   helper.render();
   helper.update();
@@ -74,15 +59,14 @@ function stop() {
 }
 
 function initAgent() {
-  if (typeof window.orientation !== 'undefined') { maxNumFish = 200 }
-
   let Agent = new AgentBuilder('FISH');
   helper.registerAgents({
     FISH: Agent,
   });
 
+  const mobile = window.innerWidth <= 812 || window.innerHeight <= 400;
   helper.initialPopulation({
-    FISH: 150,
+    FISH: mobile ? 50 : 150,
   });
 
   animate();

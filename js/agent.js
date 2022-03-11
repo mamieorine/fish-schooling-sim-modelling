@@ -1,6 +1,7 @@
 class AgentRenderer {
   render(ctx) {
     const angle = this.vel.heading();
+    const mobile = window.innerWidth <= 812 || window.innerHeight <= 400;
 
     ctx.beginPath();
     ctx.save();
@@ -8,16 +9,30 @@ class AgentRenderer {
     ctx.rotate(angle);
 
     ctx.beginPath();
-    ctx.moveTo(this.radius, this.radius - 15);
-    ctx.lineTo(this.radius + 15, this.radius);
-    ctx.lineTo(this.radius, this.radius + 15);
+    if (mobile) {
+      ctx.moveTo(this.radius, this.radius - 10);
+      ctx.lineTo(this.radius + 10, this.radius);
+      ctx.lineTo(this.radius, this.radius + 10);
+    } else {
+      ctx.moveTo(this.radius, this.radius - 15);
+      ctx.lineTo(this.radius + 15, this.radius);
+      ctx.lineTo(this.radius, this.radius + 15);
+    }
+
     ctx.fillStyle = `rgba(43,82,97,0.8)`;
     ctx.fill();
 
     ctx.beginPath();
-    ctx.moveTo(this.radius - 10, this.radius);
-    ctx.lineTo(this.radius, this.radius);
-    ctx.lineTo(this.radius + 5, this.radius + 5);
+
+    if (mobile) {
+      ctx.moveTo(this.radius - 5, this.radius);
+      ctx.lineTo(this.radius, this.radius);
+      ctx.lineTo(this.radius + 2, this.radius + 2);
+    } else {
+      ctx.moveTo(this.radius - 10, this.radius);
+      ctx.lineTo(this.radius, this.radius);
+      ctx.lineTo(this.radius + 5, this.radius + 5);
+    }
     ctx.fillStyle = `rgba(43,82,97,0.8})`;
     ctx.fill();
 
@@ -36,7 +51,7 @@ class BaseAgent extends AgentRenderer {
     this.vel = new Vector(0, -2);
 
     this.builder = builder;
-    this.radius = 10;
+    this.radius = 8;
     this.maxSpeed = 1.5;
     this.maxForce = 0.05;
 
