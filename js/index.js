@@ -1,4 +1,4 @@
-let canvas = document.querySelector('#c');
+let canvas = document.querySelector('#fishTank');
 let ctx = canvas.getContext('2d');
 
 let isFirstVisit = true;
@@ -8,15 +8,14 @@ let lastFrame;
 let fps;
 let frameRate;
 
-const REPRODUCTION_RATE = 0.5;
 const FISH = 'FISH';
 const WIDTH = canvas.width = window.innerWidth;
 const HEIGHT = canvas.height = 600;
-const helper = new Helper();
-
 const HALF_W = WIDTH / 2;
 const HALF_H = HEIGHT / 2;
+
 const grd = ctx.createRadialGradient(HALF_W, HALF_H, 0, HALF_W, HALF_H, WIDTH);
+const helper = new Helper();
 
 function animate() {
   if (isStop) return;
@@ -30,9 +29,14 @@ function animate() {
     name: FISH,
     cloneItSelf: 0.0015,
     callback: function () {
-      if (helper.groups.FISH.length < maxNumFish
-        && random(1) < REPRODUCTION_RATE) {
-        this.reproduce(helper.groups.FISH);
+      if (helper.groups.FISH.length < maxNumFish) {
+        let maxDist = Infinity;
+        const fishPopulation = helper.groups.FISH;
+
+        for (let i = 0; i < fishPopulation.length - 1; i++) {
+          let agentA = fishPopulation[i];
+          maxDist = helper.getDistance(agentA.pos.x, agentA.pos.y, this.pos.x, this.pos.y);
+        }
       }
     }
   });
